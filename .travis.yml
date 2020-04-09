@@ -1,7 +1,7 @@
 dist: bionic
 language: ruby
 rvm: 2.7
-before_script: ruby ext/cmdstan/extconf.rb
+before_script: bundle exec ruby ext/cmdstan/extconf.rb
 script: bundle exec rake test
 notifications:
   email:

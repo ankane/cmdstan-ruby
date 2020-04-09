@@ -81,6 +81,6 @@ To get started with development:
 git clone https://github.com/ankane/cmdstan.git
 cd cmdstan
 bundle install
-ruby ext/cmdstan/extconf.rb
+bundle exec ruby ext/cmdstan/extconf.rb
 bundle exec rake test
 ```
