@@ -20,18 +20,33 @@ class CmdStanTest < Minitest::Test
     assert_equal 1000, fit.draws
     sample = fit.sample
 
-    skip "Different results" if ENV["TRAVIS"]
-
-    assert_in_delta -7.02513, sample[0][0][0]
-    assert_in_delta -6.81299, sample[999][4][0]
+    # different results on Mac and Linux with same seed
+    if mac?
+      assert_in_delta -7.02513, sample[0][0][0]
+      assert_in_delta -6.81299, sample[999][4][0]
+    else
+      assert_in_delta -7.78223, sample[0][0][0]
+      assert_in_delta -6.7773, sample[999][4][0]
+    end
 
     summary = fit.summary
-    assert_in_delta -7.253620, summary["lp__"]["Mean"]
-    assert_in_delta 0.250001, summary["theta"]["Mean"]
+    if mac?
+      assert_in_delta -7.253620, summary["lp__"]["Mean"]
+      assert_in_delta 0.250001, summary["theta"]["Mean"]
+    else
+      assert_in_delta -7.271400, summary["lp__"]["Mean"]
+      assert_in_delta 0.254981, summary["theta"]["Mean"]
+    end
 
     mle = model.optimize(data: data, seed: 123)
     assert_equal ["lp__", "theta"], mle.column_names
     assert_in_delta -5.00402, mle.optimized_params["lp__"]
     assert_in_delta 0.2, mle.optimized_params["theta"]
+  end
+
+  private
+
+  def mac?
+    RbConfig::CONFIG["host_os"] =~ /darwin/i
   end
 end
