@@ -54,7 +54,7 @@ path = ENV["CMDSTAN"] || File.expand_path("../../tmp/cmdstan", __dir__)
 FileUtils.mkdir_p(path)
 Dir.chdir(path)
 # TODO use Gem::Package::TarReader from Rubygems
-system "tar", "zxvf", download_path, "-C", path, "--strip-components=1"
+system "tar", "zxf", download_path, "-C", path, "--strip-components=1"
 
 # build
 system "make", "build", "-j"
