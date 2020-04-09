@@ -2,6 +2,8 @@
 
 Bayesian inference for Ruby, powered by [CmdStan](https://github.com/stan-dev/cmdstan)
 
+[![Build Status](https://travis-ci.org/ankane/cmdstan.svg?branch=master)](https://travis-ci.org/ankane/cmdstan)
+
 ## Installation
 
 Add this line to your application’s Gemfile:
