@@ -3,13 +3,12 @@ module CmdStan
     private
 
     def run_command(*args)
-      # use popen3 since it does escaping (like system)
-      Open3.popen3(*args) do |i, o, e, t|
-        if t.value.exitstatus != 0
-          $stderr.puts o.read
-          $stderr.puts e.read
-          raise Error, "Command failed"
-        end
+      # use an open3 method since it does escaping (like system)
+      # use capture2e so we don't need to worry about deadlocks
+      output, status = Open3.capture2e(*args)
+      if status.exitstatus != 0
+        $stderr.puts output
+        raise Error, "Command failed"
       end
     end
 

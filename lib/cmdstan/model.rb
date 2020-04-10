@@ -10,7 +10,7 @@ module CmdStan
 
       @stan_file = stan_file
       @exe_file = exe_file || stan_file.sub(/.stan\z/, extension)
-      @name = File.basename(@exe_file)
+      @name = File.basename(@exe_file, extension)
 
       if compile && !exe_file
         self.compile

@@ -9,7 +9,11 @@ class CmdStanTest < Minitest::Test
 
     assert_equal "bernoulli", model.name
     assert model.stan_file.end_with?("bernoulli.stan")
-    assert model.exe_file.end_with?("bernoulli")
+    if windows?
+      assert model.exe_file.end_with?("bernoulli.exe")
+    else
+      assert model.exe_file.end_with?("bernoulli")
+    end
     assert_match "y ~ bernoulli(theta);", model.code
 
     data = {"N" => 10, "y" => [0, 1, 0, 0, 0, 0, 0, 0, 0, 1]}
@@ -20,10 +24,13 @@ class CmdStanTest < Minitest::Test
     assert_equal 1000, fit.draws
     sample = fit.sample
 
-    # different results on Mac and Linux with same seed
+    # different results on different platforms with same seed
     if mac?
       assert_in_delta -7.02513, sample[0][0][0]
       assert_in_delta -6.81299, sample[999][4][0]
+    elsif windows?
+      assert_in_delta -7.16416, sample[0][0][0]
+      assert_in_delta -7.39386, sample[999][4][0]
     else
       assert_in_delta -7.78223, sample[0][0][0]
       assert_in_delta -6.7773, sample[999][4][0]
@@ -33,6 +40,9 @@ class CmdStanTest < Minitest::Test
     if mac?
       assert_in_delta -7.253620, summary["lp__"]["Mean"]
       assert_in_delta 0.250001, summary["theta"]["Mean"]
+    elsif windows?
+      assert_in_delta -7.27114, summary["lp__"]["Mean"]
+      assert_in_delta 0.247182, summary["theta"]["Mean"]
     else
       assert_in_delta -7.271400, summary["lp__"]["Mean"]
       assert_in_delta 0.254981, summary["theta"]["Mean"]
@@ -48,5 +58,9 @@ class CmdStanTest < Minitest::Test
 
   def mac?
     RbConfig::CONFIG["host_os"] =~ /darwin/i
+  end
+
+  def windows?
+    Gem.win_platform?
   end
 end
