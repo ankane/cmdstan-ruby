@@ -9,7 +9,7 @@ module CmdStan
       stan_file = File.expand_path(stan_file) if stan_file
 
       @stan_file = stan_file
-      @exe_file = exe_file || stan_file.sub(/.stan\z/, "")
+      @exe_file = exe_file || stan_file.sub(/.stan\z/, extension)
       @name = File.basename(@exe_file)
 
       if compile && !exe_file
@@ -19,7 +19,7 @@ module CmdStan
 
     def compile
       Dir.chdir(CmdStan.path) do
-        run_command "make", @exe_file
+        run_command make_command, @exe_file
       end
     end
 

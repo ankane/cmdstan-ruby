@@ -26,7 +26,7 @@ module CmdStan
 
     def summary
       csv_file = Tempfile.new
-      run_command "#{CmdStan.path}/bin/stansummary", "--csv_file=#{csv_file.path}", *@output_files.map(&:path)
+      run_command "#{CmdStan.path}/bin/stansummary#{extension}", "--csv_file=#{csv_file.path}", *@output_files.map(&:path)
 
       result = {}
       CSV.foreach(csv_file.path, headers: true, converters: :numeric) do |row|
