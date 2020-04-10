@@ -12,6 +12,7 @@ module CmdStan
       CSV.foreach(@output_file.path, skip_lines: /^#/, headers: true, converters: :numeric) do |row|
         return row.to_h
       end
+      raise "Bug detected"
     end
 
     def column_names
