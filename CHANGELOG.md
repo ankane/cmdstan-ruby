@@ -1,3 +1,7 @@
+## 0.1.3 (unreleased)
+
+- Added `tempfile` dependency
+
 ## 0.1.2 (2020-04-10)
 
 - Added `tbb` to path for Windows

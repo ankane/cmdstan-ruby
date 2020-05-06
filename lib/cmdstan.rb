@@ -2,6 +2,7 @@
 require "csv"
 require "json"
 require "open3"
+require "tempfile"
 
 # modules
 require "cmdstan/utils"
