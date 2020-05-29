@@ -61,4 +61,4 @@ system "tar", "zxf", download_path, "-C", path, "--strip-components=1", *tar_arg
 
 # build
 make_command = Gem.win_platform? ? "mingw32-make" : "make"
-system make_command, "build", "-j"
+system make_command, "build"
