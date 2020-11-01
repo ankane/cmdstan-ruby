@@ -1,4 +1,4 @@
-## 0.1.4 (unreleased)
+## 0.1.4 (2020-11-01)
 
 - Updated CmdStan to 2.25.0
 
