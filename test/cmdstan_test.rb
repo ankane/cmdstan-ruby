@@ -26,8 +26,8 @@ class CmdStanTest < Minitest::Test
 
     # different results on different platforms with same seed
     if mac?
-      assert_in_delta -7.02513, sample[0][0][0]
-      assert_in_delta -6.81299, sample[999][4][0]
+      assert_in_delta -6.82124, sample[0][0][0]
+      assert_in_delta -6.77201, sample[999][4][0]
     elsif windows?
       assert_in_delta -7.16416, sample[0][0][0]
       assert_in_delta -7.39386, sample[999][4][0]
@@ -38,7 +38,7 @@ class CmdStanTest < Minitest::Test
 
     summary = fit.summary
     if mac?
-      assert_in_delta -7.253620, summary["lp__"]["Mean"]
+      assert_in_delta -7.25261, summary["lp__"]["Mean"]
       assert_in_delta 0.250001, summary["theta"]["Mean"]
     elsif windows?
       assert_in_delta -7.27114, summary["lp__"]["Mean"]

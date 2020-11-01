@@ -1,3 +1,7 @@
+## 0.1.4 (unreleased)
+
+- Updated CmdStan to 2.25.0
+
 ## 0.1.3 (2020-05-29)
 
 - Added `tempfile` dependency
