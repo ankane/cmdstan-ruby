@@ -8,9 +8,11 @@ module CmdStan
       tbblib = ENV["STAN_TBB"] || File.join(CmdStan.path, "stan", "lib", "stan_math", "lib", "tbb")
       if windows?
         # uses ; for separator
+        raise "Invalid path" if tbblib.include?(";")
         env["PATH"] = "#{tbblib};#{ENV["PATH"]}"
       elsif !mac?
         # uses : for separator
+        raise "Invalid path" if tbblib.include?(":")
         env["LD_LIBRARY_PATH"] = "#{tbblib}:#{ENV["LD_LIBRARY_PATH"]}"
       end
 
