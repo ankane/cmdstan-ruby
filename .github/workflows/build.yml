@@ -16,6 +16,11 @@ jobs:
     #   with:
     #     ruby-version: 2.7
     #     bundler-cache: true
+    - run: which make
+    - run: echo "C:\msys64\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    - run: which make
+    - run: echo "C:\\msys64\\usr\\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+    - run: which make
     - if: ${{ startsWith(matrix.os, 'windows') }}
       run: ls C:\msys64\usr\bin\
     - run: mingw32-make
