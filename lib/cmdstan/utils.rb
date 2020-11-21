@@ -4,10 +4,11 @@ module CmdStan
 
     def run_command(*args)
       env = {}
-      if windows?
+      unless mac?
         # add tbb to path
+        key = windows? ? "PATH" : "LD_LIBRARY_PATH"
         tbblib = ENV["STAN_TBB"] || File.join(CmdStan.path, "stan", "lib", "stan_math", "lib", "tbb")
-        env["PATH"] = "#{tbblib};#{ENV["PATH"]}"
+        env[key] = "#{tbblib};#{ENV[key]}"
       end
 
       # use an open3 method since it does escaping (like system)
@@ -25,6 +26,10 @@ module CmdStan
 
     def extension
       windows? ? ".exe" : ""
+    end
+
+    def mac?
+      RbConfig::CONFIG["host_os"] =~ /darwin/i
     end
 
     def windows?

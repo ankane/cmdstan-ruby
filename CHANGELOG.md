@@ -1,3 +1,7 @@
+## 0.1.5 (unreleased)
+
+- Fixed error with `libtbb` on Linux
+
 ## 0.1.4 (2020-11-01)
 
 - Updated CmdStan to 2.25.0
