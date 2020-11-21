@@ -10,17 +10,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-    # - uses: ruby/setup-ruby@v1
-    #   with:
-    #     ruby-version: 2.7
-    #     bundler-cache: true
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+        bundler-cache: true
     - uses: msys2/setup-msys2@v2
-    - run: make --version
-    - run: mingw32-make --version
-    - run: echo "C:\msys64\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-    - run: pacman --noconfirm -Sy mingw-w64-x86_64-make
-    - run: make --version
-    - run: mingw32-make --version
-    - run: ls C:\msys64\usr\bin\
-    # - run: bundle exec ruby ext/cmdstan/extconf.rb
-    # - run: bundle exec rake test
+    - run: bundle exec ruby ext/cmdstan/extconf.rb
+    - run: bundle exec rake test
