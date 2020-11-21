@@ -1,6 +1,6 @@
 ## 0.1.5 (unreleased)
 
-- Fixed error with `libtbb` on Linux
+- Fixed error with `tbb` on Linux
 
 ## 0.1.4 (2020-11-01)
 
