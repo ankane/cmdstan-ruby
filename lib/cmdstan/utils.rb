@@ -4,11 +4,14 @@ module CmdStan
 
     def run_command(*args)
       env = {}
-      unless mac?
-        # add tbb to path
-        key = windows? ? "PATH" : "LD_LIBRARY_PATH"
-        tbblib = ENV["STAN_TBB"] || File.join(CmdStan.path, "stan", "lib", "stan_math", "lib", "tbb")
-        env[key] = "#{tbblib};#{ENV[key]}"
+      # add tbb to path
+      tbblib = ENV["STAN_TBB"] || File.join(CmdStan.path, "stan", "lib", "stan_math", "lib", "tbb")
+      if windows?
+        # uses ; for separator
+        env["PATH"] = "#{tbblib};#{ENV["PATH"]}"
+      elsif !mac?
+        # uses : for separator
+        env["LD_LIBRARY_PATH"] = "#{tbblib}:#{ENV["LD_LIBRARY_PATH"]}"
       end
 
       # use an open3 method since it does escaping (like system)

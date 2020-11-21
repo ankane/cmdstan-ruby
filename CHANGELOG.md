@@ -1,6 +1,6 @@
 ## 0.1.5 (unreleased)
 
-- Fixed error with `tbb` on Linux
+- Added `tbb` to path for Linux
 
 ## 0.1.4 (2020-11-01)
 
