@@ -16,9 +16,7 @@ jobs:
       with:
         ruby-version: 2.7
         bundler-cache: true
-    - run: |
-        ridk enable
-        bundle exec ruby ext/cmdstan/extconf.rb
-    - run: |
-        ridk enable
-        bundle exec rake test
+    - if: ${{ startsWith(matrix.os, 'windows') }}
+      run: ridk enable
+    - run: bundle exec ruby ext/cmdstan/extconf.rb
+    - run: bundle exec rake test
