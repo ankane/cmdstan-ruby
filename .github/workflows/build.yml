@@ -10,8 +10,6 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-      with:
-        submodules: true
     # - uses: ruby/setup-ruby@v1
     #   with:
     #     ruby-version: 2.7
@@ -20,7 +18,7 @@ jobs:
     - run: make --version
     - run: mingw32-make --version
     - run: echo "C:\msys64\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-    - run: pacman -Sy mingw-w64-x86_64-make
+    - run: pacman --noconfirm -Sy mingw-w64-x86_64-make
     - run: make --version
     - run: mingw32-make --version
     - run: ls C:\msys64\usr\bin\
