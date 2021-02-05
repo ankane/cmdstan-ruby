@@ -61,7 +61,7 @@ module CmdStan
         args << "num_samples=#{sampling_iters.to_i}" if sampling_iters
         args += ["algorithm=hmc", "adapt", "engaged=1"]
 
-        run_command *args
+        run_command(*args)
 
         output_files << output_file
       end
@@ -99,7 +99,7 @@ module CmdStan
       args << "algorithm=#{algorithm.to_s.downcase}" if algorithm
       args << "iter=#{iter.to_i}" if iter
 
-      run_command *args
+      run_command(*args)
 
       MLE.new(output_file)
     end
