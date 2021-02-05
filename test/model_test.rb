@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-class CmdStanTest < Minitest::Test
+class ModelTest < Minitest::Test
   def test_works
     # use temp directory since it creates files
     stan_file = "#{Dir.mktmpdir}/bernoulli.stan"
