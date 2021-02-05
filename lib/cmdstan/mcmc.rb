@@ -25,11 +25,12 @@ module CmdStan
     end
 
     def summary
-      csv_file = Tempfile.new
-      run_command "#{CmdStan.path}/bin/stansummary#{extension}", "--csv_file=#{csv_file.path}", *@output_files.map(&:path)
+      # add suffix since path can't already exist
+      path = "#{Tempfile.new.path}.csv"
+      run_command "#{CmdStan.path}/bin/stansummary#{extension}", "--csv_filename=#{path}", *@output_files.map(&:path)
 
       result = {}
-      CSV.foreach(csv_file.path, headers: true, converters: :numeric) do |row|
+      CSV.foreach(path, headers: true, converters: :numeric) do |row|
         value = row.to_h
         name = value.delete("name")
         result[name] = value if name == "lp__" || !name.end_with?("__")

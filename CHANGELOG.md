@@ -1,3 +1,7 @@
+## 0.1.6 (unreleased)
+
+- Updated CmdStan to 2.26.0
+
 ## 0.1.5 (2020-11-21)
 
 - Added `tbb` to path for Linux

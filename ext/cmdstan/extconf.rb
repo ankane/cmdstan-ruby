@@ -3,8 +3,8 @@ require "fileutils"
 require "net/http"
 require "tmpdir"
 
-version = "2.25.0"
-checksum = "6bd90c6513d386f22007750f136c3f8db0132aa3e80c7298095516c68ab95a4a"
+version = "2.26.0"
+checksum = "0bc5529a4818e70ef8181191a515ea5e1a6fce326dda41a040f99deb89bcb663"
 url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
 
 $stdout.sync = true
