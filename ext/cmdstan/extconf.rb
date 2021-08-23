@@ -7,6 +7,10 @@ version = "2.27.0"
 checksum = "ff71f4d255cf26c2d8366a8173402656a659399468871305056aa3d56329c1d5"
 url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
 
+path = ENV["CMDSTAN"] || File.expand_path("../../tmp/cmdstan", __dir__)
+FileUtils.mkdir_p(path)
+raise "Directory not empty. Run: rake clean" unless Dir.empty?(path)
+
 $stdout.sync = true
 
 def download_file(url, download_path, checksum)
@@ -52,8 +56,6 @@ download_path = "#{Dir.tmpdir}/cmdstan-#{version}.tar.gz"
 download_file(url, download_path, checksum)
 
 # extract
-path = ENV["CMDSTAN"] || File.expand_path("../../tmp/cmdstan", __dir__)
-FileUtils.mkdir_p(path)
 Dir.chdir(path)
 # TODO use Gem::Package::TarReader from Rubygems
 tar_args = Gem.win_platform? ? ["--force-local"] : []
