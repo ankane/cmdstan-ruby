@@ -2,7 +2,7 @@
 
 Bayesian inference for Ruby, powered by [CmdStan](https://github.com/stan-dev/cmdstan)
 
-[![Build Status](https://github.com/ankane/cmdstan/workflows/build/badge.svg?branch=master)](https://github.com/ankane/cmdstan/actions)
+[![Build Status](https://github.com/ankane/cmdstan-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/cmdstan-ruby/actions)
 
 ## Installation
 
@@ -64,22 +64,22 @@ This library is modeled after the [CmdStanPy API](https://github.com/stan-dev/cm
 
 ## History
 
-View the [changelog](https://github.com/ankane/cmdstan/blob/master/CHANGELOG.md)
+View the [changelog](https://github.com/ankane/cmdstan-ruby/blob/master/CHANGELOG.md)
 
 ## Contributing
 
 Everyone is encouraged to help improve this project. Here are a few ways you can help:
 
-- [Report bugs](https://github.com/ankane/cmdstan/issues)
-- Fix bugs and [submit pull requests](https://github.com/ankane/cmdstan/pulls)
+- [Report bugs](https://github.com/ankane/cmdstan-ruby/issues)
+- Fix bugs and [submit pull requests](https://github.com/ankane/cmdstan-ruby/pulls)
 - Write, clarify, or fix documentation
 - Suggest or add new features
 
 To get started with development:
 
 ```sh
-git clone https://github.com/ankane/cmdstan.git
-cd cmdstan
+git clone https://github.com/ankane/cmdstan-ruby.git
+cd cmdstan-ruby
 bundle install
 bundle exec ruby ext/cmdstan/extconf.rb
 bundle exec rake test

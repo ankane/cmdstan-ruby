@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name          = "cmdstan"
   spec.version       = CmdStan::VERSION
   spec.summary       = "Bayesian inference for Ruby, powered by CmdStan"
-  spec.homepage      = "https://github.com/ankane/cmdstan"
+  spec.homepage      = "https://github.com/ankane/cmdstan-ruby"
   spec.license       = "BSD-3-Clause"
 
   spec.author        = "Andrew Kane"
