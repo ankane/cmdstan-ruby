@@ -3,8 +3,8 @@ require "fileutils"
 require "net/http"
 require "tmpdir"
 
-version = "2.27.0"
-checksum = "ff71f4d255cf26c2d8366a8173402656a659399468871305056aa3d56329c1d5"
+version = "2.28.1"
+checksum = "eacadb4a1ca6997c9858e301780e729e53a9b5207b19ae2616abc882677e7637"
 url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
 
 path = ENV["CMDSTAN"] || File.expand_path("../../tmp/cmdstan", __dir__)
@@ -13,7 +13,9 @@ raise "Directory not empty. Run: rake clean" unless Dir.empty?(path)
 
 $stdout.sync = true
 
-def download_file(url, download_path, checksum)
+def download_file(url, download_path, checksum, redirects = 0)
+  raise "Too many redirects" if redirects > 10
+
   uri = URI(url)
   location = nil
 
@@ -39,7 +41,7 @@ def download_file(url, download_path, checksum)
         end
         puts # newline
 
-        abort "Bad checksum" if digest.hexdigest != checksum
+        abort "Bad checksum: #{digest.hexdigest}" if digest.hexdigest != checksum
       else
         abort "Bad response"
       end
@@ -47,7 +49,7 @@ def download_file(url, download_path, checksum)
   end
 
   # outside of Net::HTTP block to close previous connection
-  download_file(location, download_path, checksum) if location
+  download_file(location, download_path, checksum, redirects + 1) if location
 end
 
 # download
