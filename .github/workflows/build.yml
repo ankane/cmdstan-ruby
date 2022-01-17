@@ -5,7 +5,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest] # TODO add windows-latest
+        os: [windows-latest] # TODO add windows-latest
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
