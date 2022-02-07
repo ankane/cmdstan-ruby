@@ -1,3 +1,8 @@
+## 0.1.9 (unreleased)
+
+- Added support for Linux ARM
+- Updated CmdStan to 2.28.2
+
 ## 0.1.8 (2022-01-16)
 
 - Updated CmdStan to 2.28.1
