@@ -1,15 +1,15 @@
 require "digest"
 require "fileutils"
 require "net/http"
-require "rbconfig"
 require "tmpdir"
 
-version = "2.28.1"
-if RbConfig::CONFIG['host_cpu'] == "aarch64"
-  checksum = "0ab11724e51df1744e36a8ff29275ee04d14098ee18c0ed9227ee606d30181d9"
+version = "2.28.2"
+# TODO figure out Mac ARM
+if RbConfig::CONFIG["host_os"] !~ /darwin/i && RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
+  checksum = "cd8f588a1267e3e36761b7bcdff1b7f36bf43b8ec119667654995bfa5f921fa4"
   url =  "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}-linux-arm64.tar.gz"
 else
-  checksum = "eacadb4a1ca6997c9858e301780e729e53a9b5207b19ae2616abc882677e7637"
+  checksum = "4e6ed2685460d7f33ddbc81ccb1e59befa7efd91e46d5b040027aab8daec4526"
   url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
 end
 
