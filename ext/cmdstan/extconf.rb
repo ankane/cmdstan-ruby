@@ -1,11 +1,17 @@
 require "digest"
 require "fileutils"
 require "net/http"
+require "rbconfig"
 require "tmpdir"
 
 version = "2.28.1"
-checksum = "eacadb4a1ca6997c9858e301780e729e53a9b5207b19ae2616abc882677e7637"
-url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
+if RbConfig::CONFIG['host_cpu'] == "aarch64"
+  checksum = "0ab11724e51df1744e36a8ff29275ee04d14098ee18c0ed9227ee606d30181d9"
+  url =  "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}-linux-arm64.tar.gz"
+else
+  checksum = "eacadb4a1ca6997c9858e301780e729e53a9b5207b19ae2616abc882677e7637"
+  url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
+end
 
 path = ENV["CMDSTAN"] || File.expand_path("../../tmp/cmdstan", __dir__)
 FileUtils.mkdir_p(path)
