@@ -9,7 +9,7 @@ Bayesian inference for Ruby, powered by [CmdStan](https://github.com/stan-dev/cm
 Add this line to your application’s Gemfile:
 
 ```ruby
-gem 'cmdstan'
+gem "cmdstan"
 ```
 
 Installation can take a few minutes as CmdStan downloads and builds.
