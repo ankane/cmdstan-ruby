@@ -1,4 +1,4 @@
-## 0.2.0 (unreleased)
+## 0.2.0 (2022-04-23)
 
 - CmdStan now installs when the first model is compiled rather than on gem installation
 - Added `cmdstan_installed?` and `install_cmdstan` methods
