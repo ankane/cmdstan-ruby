@@ -23,31 +23,15 @@ class ModelTest < Minitest::Test
     assert_equal expected_names, fit.column_names
     assert_equal 1000, fit.draws
     sample = fit.sample
-
-    # different results on different platforms with same seed
-    if mac?
-      assert_in_delta(-6.78375, sample[0][0][0])
-      assert_in_delta(-6.77201, sample[999][4][0])
-    # elsif windows?
-    #   assert_in_delta -7.16416, sample[0][0][0]
-    #   assert_in_delta -7.39386, sample[999][4][0]
-    # else
-    #   assert_in_delta -7.78223, sample[0][0][0]
-    #   assert_in_delta -6.7773, sample[999][4][0]
-    end
+    # different results on different machines with same seed
+    assert_in_delta(-7.26055, sample[0][0][0], 1)
+    assert_in_delta(-7.26055, sample[999][4][0], 1)
 
     summary = fit.summary
-    if mac?
-      assert_in_delta(-7.26055, summary["lp__"]["Mean"])
-      assert_in_delta(0.247379, summary["theta"]["Mean"])
-    # elsif windows?
-    #   assert_in_delta -7.27114, summary["lp__"]["Mean"]
-    #   assert_in_delta 0.247182, summary["theta"]["Mean"]
-    # else
-    #   assert_in_delta -7.271400, summary["lp__"]["Mean"]
-    #   assert_in_delta 0.254981, summary["theta"]["Mean"]
-    end
     assert_equal 2, summary.size
+    # different results on different machines with same seed
+    assert_in_delta(-7.26055, summary["lp__"]["Mean"], 0.1)
+    assert_in_delta(0.247379, summary["theta"]["Mean"], 0.1)
 
     mle = model.optimize(data: data, seed: 123)
     assert_equal ["lp__", "theta"], mle.column_names
@@ -58,15 +42,5 @@ class ModelTest < Minitest::Test
     model = CmdStan::Model.new(exe_file: model.exe_file)
     fit = model.sample(chains: 5, data: data, seed: 123)
     assert_equal 1000, fit.draws
-  end
-
-  private
-
-  def mac?
-    RbConfig::CONFIG["host_os"] =~ /darwin/i
-  end
-
-  def windows?
-    Gem.win_platform?
   end
 end
