@@ -1,6 +1,7 @@
 ## 0.2.0 (unreleased)
 
 - Fixed issue with `summary` method
+- Dropped support for Ruby < 2.7
 
 ## 0.1.9 (2022-02-07)
 
