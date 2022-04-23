@@ -1,7 +1,7 @@
 ## 0.2.0 (unreleased)
 
 - CmdStan now installs when the first model is compiled rather than on gem installation
-- Added `install_cmdstan` method
+- Added `cmdstan_installed?` and `install_cmdstan` methods
 - Updated CmdStan to 2.29.2
 - Fixed issue with `summary` method
 - Dropped support for Ruby < 2.7
