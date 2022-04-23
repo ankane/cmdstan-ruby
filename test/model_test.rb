@@ -47,6 +47,7 @@ class ModelTest < Minitest::Test
     #   assert_in_delta -7.271400, summary["lp__"]["Mean"]
     #   assert_in_delta 0.254981, summary["theta"]["Mean"]
     end
+    assert_equal 2, summary.size
 
     mle = model.optimize(data: data, seed: 123)
     assert_equal ["lp__", "theta"], mle.column_names

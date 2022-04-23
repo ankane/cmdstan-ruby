@@ -30,7 +30,7 @@ module CmdStan
       run_command "#{CmdStan.path}/bin/stansummary#{extension}", "--csv_filename=#{path}", *@output_files.map(&:path)
 
       result = {}
-      CSV.foreach(path, headers: true, converters: :numeric) do |row|
+      CSV.foreach(path, skip_lines: /^#/, headers: true, converters: :numeric) do |row|
         value = row.to_h
         name = value.delete("name")
         result[name] = value if name == "lp__" || !name.end_with?("__")
