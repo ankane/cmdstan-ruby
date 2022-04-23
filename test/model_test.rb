@@ -53,6 +53,11 @@ class ModelTest < Minitest::Test
     assert_equal ["lp__", "theta"], mle.column_names
     assert_in_delta(-5.00402, mle.optimized_params["lp__"])
     assert_in_delta(0.2, mle.optimized_params["theta"])
+
+    # load model
+    model = CmdStan::Model.new(exe_file: model.exe_file)
+    fit = model.sample(chains: 5, data: data, seed: 123)
+    assert_equal 1000, fit.draws
   end
 
   private

@@ -18,8 +18,12 @@ module CmdStan
     end
 
     def compile
+      unless ENV["CMDSTAN"] || CmdStan.cmdstan_installed?
+        CmdStan.install_cmdstan
+      end
+
       Dir.chdir(CmdStan.path) do
-        run_command make_command, @exe_file
+        run_command make_command, @exe_file, "PRECOMPILED_HEADERS=false"
       end
     end
 

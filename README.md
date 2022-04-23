@@ -12,8 +12,6 @@ Add this line to your application’s Gemfile:
 gem "cmdstan"
 ```
 
-Installation can take a few minutes as CmdStan downloads and builds.
-
 ## Getting Started
 
 Create a Stan file, like `bernoulli.stan`
@@ -32,7 +30,7 @@ model {
 }
 ```
 
-Compile the model
+Compile the model (this can take a few minutes the first time as CmdStan downloads and builds)
 
 ```ruby
 model = CmdStan::Model.new(stan_file: "bernoulli.stan")
@@ -51,11 +49,31 @@ Summarize the results
 fit.summary
 ```
 
+Load a compiled model
+
+```ruby
+model = CmdStan::Model.new(exe_file: "bernoulli")
+```
+
 ## Maximum Likelihood Estimation
 
 ```ruby
 mle = model.optimize(data: data)
 mle.optimized_params
+```
+
+## Reference
+
+Check if CmdStan is installed
+
+```ruby
+CmdStan.cmdstan_installed?
+```
+
+Install CmdStan manually
+
+```ruby
+CmdStan.install_cmdstan
 ```
 
 ## Credits
@@ -81,6 +99,5 @@ To get started with development:
 git clone https://github.com/ankane/cmdstan-ruby.git
 cd cmdstan-ruby
 bundle install
-bundle exec ruby ext/cmdstan/extconf.rb
 bundle exec rake test
 ```
