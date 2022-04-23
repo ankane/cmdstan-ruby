@@ -24,8 +24,8 @@ class ModelTest < Minitest::Test
     assert_equal 1000, fit.draws
     sample = fit.sample
     # different results on different machines with same seed
-    assert_in_delta(-7.26055, sample[0][0][0], 1)
-    assert_in_delta(-7.26055, sample[999][4][0], 1)
+    assert_kind_of Float, sample[0][0][0]
+    assert_kind_of Float, sample[999][4][0]
 
     summary = fit.summary
     assert_equal 2, summary.size
