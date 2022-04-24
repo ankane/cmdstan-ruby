@@ -1,7 +1,3 @@
-## 0.2.1 (unreleased)
-
-- Added support for Mac ARM
-
 ## 0.2.0 (2022-04-23)
 
 - CmdStan now installs when the first model is compiled rather than on gem installation

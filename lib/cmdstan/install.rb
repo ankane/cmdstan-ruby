@@ -12,7 +12,8 @@ module CmdStan
       version = cmdstan_version
       dir = CmdStan.path
 
-      if RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
+      # TODO figure out Mac ARM
+      if RbConfig::CONFIG["host_os"] !~ /darwin/i && RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
         checksum = "9b7eec78e217cab39d3d794e817a1ca08f36b1e5cb434c4cd8263bb2650ba125"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}-linux-arm64.tar.gz"
       else
