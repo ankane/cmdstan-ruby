@@ -36,7 +36,7 @@ module CmdStan
       data_file.write(data.to_json)
       data_file.close
 
-      chain ||= 4
+      chains ||= 4
 
       output_files = []
       chains.times do |chain|

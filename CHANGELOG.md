@@ -1,3 +1,7 @@
+## 0.2.1 (unreleased)
+
+- Fixed error when `chains` not specified
+
 ## 0.2.0 (2022-04-23)
 
 - CmdStan now installs when the first model is compiled rather than on gem installation

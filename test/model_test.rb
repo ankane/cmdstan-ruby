@@ -40,7 +40,7 @@ class ModelTest < Minitest::Test
 
     # load model
     model = CmdStan::Model.new(exe_file: model.exe_file)
-    fit = model.sample(chains: 5, data: data, seed: 123)
+    fit = model.sample(data: data, seed: 123)
     assert_equal 1000, fit.draws
   end
 end
