@@ -55,6 +55,8 @@ Load a compiled model
 model = CmdStan::Model.new(exe_file: "bernoulli")
 ```
 
+Check out [Strata](https://github.com/ankane/strata) for shipping models
+
 ## Maximum Likelihood Estimation
 
 ```ruby
