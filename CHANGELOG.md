@@ -1,5 +1,6 @@
 ## 0.2.1 (unreleased)
 
+- Updated CmdStan to 2.30.0
 - Fixed error when `chains` not specified
 
 ## 0.2.0 (2022-04-23)
