@@ -8,12 +8,12 @@ require "open3"
 require "tempfile"
 
 # modules
-require "cmdstan/install"
-require "cmdstan/utils"
-require "cmdstan/mcmc"
-require "cmdstan/mle"
-require "cmdstan/model"
-require "cmdstan/version"
+require_relative "cmdstan/install"
+require_relative "cmdstan/utils"
+require_relative "cmdstan/mcmc"
+require_relative "cmdstan/mle"
+require_relative "cmdstan/model"
+require_relative "cmdstan/version"
 
 module CmdStan
   class Error < StandardError; end
