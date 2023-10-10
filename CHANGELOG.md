@@ -1,4 +1,4 @@
-## 0.2.3 (unreleased)
+## 0.3.0 (unreleased)
 
 - Updated CmdStan to 2.33.1
 
