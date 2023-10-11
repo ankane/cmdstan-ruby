@@ -1,4 +1,4 @@
-## 0.3.0 (unreleased)
+## 0.3.0 (2023-10-11)
 
 - Updated CmdStan to 2.33.1
 - Dropped support for Ruby < 3
