@@ -35,18 +35,20 @@ module CmdStan
         return true
       end
 
-      Dir.mktmpdir do |tmpdir|
-        puts "Downloading..."
-        download_path = File.join(tmpdir, "cmdstan-#{version}.tar.gz")
-        download_file(url, download_path, checksum)
+      unless Dir.exist?(dir)
+        Dir.mktmpdir do |tmpdir|
+          puts "Downloading..."
+          download_path = File.join(tmpdir, "cmdstan-#{version}.tar.gz")
+          download_file(url, download_path, checksum)
 
-        puts "Unpacking..."
-        path = File.join(tmpdir, "cmdstan-#{version}")
-        FileUtils.mkdir_p(path)
-        tar_args = Gem.win_platform? ? ["--force-local"] : []
-        system "tar", "xzf", download_path, "-C", path, "--strip-components=1", *tar_args
+          puts "Unpacking..."
+          path = File.join(tmpdir, "cmdstan-#{version}")
+          FileUtils.mkdir_p(path)
+          tar_args = Gem.win_platform? ? ["--force-local"] : []
+          system "tar", "xzf", download_path, "-C", path, "--strip-components=1", *tar_args
 
-        FileUtils.mv(path, dir)
+          FileUtils.mv(path, dir)
+        end
       end
 
       # cannot be moved after being built
