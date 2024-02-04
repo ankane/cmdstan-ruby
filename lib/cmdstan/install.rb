@@ -1,11 +1,14 @@
 module CmdStan
   module Install
+    include Utils
+
     def cmdstan_version
-      "2.33.1"
+      "2.34.1"
     end
 
     def cmdstan_installed?
-      Dir.exist?(CmdStan.path)
+      # last file to be built
+      File.exist?(File.join(CmdStan.path, "bin", "diagnose#{extension}"))
     end
 
     def install_cmdstan
@@ -14,10 +17,10 @@ module CmdStan
 
       # no stanc3 binary for Mac ARM
       if RbConfig::CONFIG["host_os"] !~ /darwin/i && RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
-        checksum = "c683cd171f89a2c4eab49f6617e8584d5962a839b1203f6cb46d882d25b93f67"
+        checksum = "04eabc41b6221176a661818852e7187407e4590ee462e608df149ff37eede859"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}-linux-arm64.tar.gz"
       else
-        checksum = "b848bb61178bd71980355b80994030537726d5e5862c4ddc926f23a22a001e4a"
+        checksum = "9a6efc817a473768cf21f1e4bb1303be7ade2e26fc971856a7f9cf0bc3355f2b"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
       end
 
@@ -27,7 +30,7 @@ module CmdStan
       # only needed if default path
       FileUtils.mkdir_p(File.expand_path("../../tmp", __dir__)) unless ENV["CMDSTAN"]
 
-      if Dir.exist?(dir)
+      if cmdstan_installed?
         puts "Already installed"
         return true
       end
@@ -43,18 +46,19 @@ module CmdStan
         tar_args = Gem.win_platform? ? ["--force-local"] : []
         system "tar", "xzf", download_path, "-C", path, "--strip-components=1", *tar_args
 
-        puts "Building..."
-        make_command = Gem.win_platform? ? "mingw32-make" : "make"
-        Dir.chdir(path) do
-          # disable precompiled header to save space
-          output, status = Open3.capture2e(make_command, "build", "PRECOMPILED_HEADERS=false")
-          if status.exitstatus != 0
-            puts output
-            raise Error, "Build failed"
-          end
-        end
-
         FileUtils.mv(path, dir)
+      end
+
+      # cannot be moved after being built
+      puts "Building..."
+      make_command = Gem.win_platform? ? "mingw32-make" : "make"
+      Dir.chdir(dir) do
+        # disable precompiled header to save space
+        output, status = Open3.capture2e(make_command, "build", "PRECOMPILED_HEADERS=false")
+        if status.exitstatus != 0
+          puts output
+          raise Error, "Build failed"
+        end
       end
 
       puts "Installed"
