@@ -2,7 +2,7 @@
 
 Bayesian inference for Ruby, powered by [CmdStan](https://github.com/stan-dev/cmdstan)
 
-[![Build Status](https://github.com/ankane/cmdstan-ruby/workflows/build/badge.svg?branch=master)](https://github.com/ankane/cmdstan-ruby/actions)
+[![Build Status](https://github.com/ankane/cmdstan-ruby/actions/workflows/build.yml/badge.svg)](https://github.com/ankane/cmdstan-ruby/actions)
 
 ## Installation
 
