@@ -17,10 +17,10 @@ module CmdStan
 
       # no stanc3 binary for Mac ARM
       if RbConfig::CONFIG["host_os"] !~ /darwin/i && RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
-        checksum = "83ee9e0560272015814fafbccd5ccbf66e89baba2a942f883ed532beedbc76ae"
+        checksum = "7e979a4f088aab64b19af271bd0b76a4ad81b6cccd61f805154570c5a2624275"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}-linux-arm64.tar.gz"
       else
-        checksum = "18c93e760fb5a92b76a1e9c1e460d950aa245d07f3bded058eecf3d611569441"
+        checksum = "635e2e1cf9c4774c9019001325354d3610bae2adc4ed5af2fed87872dfc671fc"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
       end
 
