@@ -83,7 +83,7 @@ module CmdStan
           when Net::HTTPRedirection
             location = response["location"]
           when Net::HTTPSuccess
-            digest = Digest::SHA2.new
+            digest = Digest::SHA256.new
 
             File.open(download_path, "wb") do |f|
               response.read_body do |chunk|
