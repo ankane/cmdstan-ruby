@@ -14,7 +14,7 @@ module CmdStan
     def install_cmdstan
       require "digest"
       require "fileutils"
-      require "net/http"
+      require "open-uri"
       require "tmpdir"
 
       version = cmdstan_version
@@ -75,37 +75,10 @@ module CmdStan
 
     private
 
-    def download_file(url, download_path, checksum, redirects = 0)
-      raise Error, "Too many redirects" if redirects > 10
-
-      uri = URI(url)
-      location = nil
-
-      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        request = Net::HTTP::Get.new(uri)
-        http.request(request) do |response|
-          case response
-          when Net::HTTPRedirection
-            location = response["location"]
-          when Net::HTTPSuccess
-            digest = Digest::SHA256.new
-
-            File.open(download_path, "wb") do |f|
-              response.read_body do |chunk|
-                f.write(chunk)
-                digest.update(chunk)
-              end
-            end
-
-            raise Error, "Bad checksum: #{digest.hexdigest}" if digest.hexdigest != checksum
-          else
-            raise Error, "Bad response"
-          end
-        end
-      end
-
-      # outside of Net::HTTP block to close previous connection
-      download_file(location, download_path, checksum, redirects + 1) if location
+    def download_file(url, download_path, checksum)
+      IO.copy_stream(URI.parse(url).open(max_redirects: 10), download_path)
+      digest = Digest::SHA256.file(download_path)
+      raise Error, "Bad checksum: #{digest.hexdigest}" if digest.hexdigest != checksum
     end
   end
 end
