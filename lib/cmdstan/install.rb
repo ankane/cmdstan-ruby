@@ -43,13 +43,20 @@ module CmdStan
       unless Dir.exist?(dir)
         puts "Downloading..."
         URI.parse(url).open(max_redirects: 10) do |download|
-          raise "Expected file" unless download.respond_to?(:path)
+          digest =
+            if download.respond_to?(:path)
+              download.flush
+              Digest::SHA256.file(download.path).hexdigest
+            else
+              Digest::SHA256.hexdigest(download.string)
+            end
 
-          download.flush
-          digest = Digest::SHA256.file(download.path).hexdigest
           if digest != checksum
             raise Error, "Bad checksum: #{digest}"
           end
+
+          # should never happen
+          raise "Expected file" if !download.respond_to?(:path)
 
           puts "Unpacking..."
           Dir.mktmpdir do |tmpdir|
