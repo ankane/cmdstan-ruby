@@ -44,7 +44,12 @@ module CmdStan
         Dir.mktmpdir do |tmpdir|
           puts "Downloading..."
           download_path = File.join(tmpdir, "cmdstan-#{version}.tar.gz")
-          download_file(url, download_path, checksum)
+          IO.copy_stream(URI.parse(url).open(max_redirects: 10), download_path)
+
+          digest = Digest::SHA256.file(download_path)
+          if digest.hexdigest != checksum
+            raise Error, "Bad checksum: #{digest.hexdigest}"
+          end
 
           puts "Unpacking..."
           path = File.join(tmpdir, "cmdstan-#{version}")
@@ -71,14 +76,6 @@ module CmdStan
       puts "Installed"
 
       true
-    end
-
-    private
-
-    def download_file(url, download_path, checksum)
-      IO.copy_stream(URI.parse(url).open(max_redirects: 10), download_path)
-      digest = Digest::SHA256.file(download_path)
-      raise Error, "Bad checksum: #{digest.hexdigest}" if digest.hexdigest != checksum
     end
   end
 end
