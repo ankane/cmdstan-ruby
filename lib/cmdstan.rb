@@ -1,9 +1,6 @@
 # stdlib
-require "digest"
 require "csv"
-require "fileutils"
 require "json"
-require "net/http"
 require "open3"
 require "tempfile"
 

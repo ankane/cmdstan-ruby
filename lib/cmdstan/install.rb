@@ -12,6 +12,11 @@ module CmdStan
     end
 
     def install_cmdstan
+      require "digest"
+      require "fileutils"
+      require "net/http"
+      require "tmpdir"
+
       version = cmdstan_version
       dir = CmdStan.path
 
