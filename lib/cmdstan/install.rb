@@ -43,8 +43,10 @@ module CmdStan
       unless Dir.exist?(dir)
         Dir.mktmpdir do |tmpdir|
           puts "Downloading..."
-          download_path = File.join(tmpdir, "cmdstan-#{version}.tar.gz")
-          IO.copy_stream(URI.parse(url).open(max_redirects: 10), download_path)
+          download = URI.parse(url).open(max_redirects: 10)
+          download.flush
+          # should always be tempfile
+          download_path = download.path
 
           digest = Digest::SHA256.file(download_path)
           if digest.hexdigest != checksum
