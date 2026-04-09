@@ -46,9 +46,9 @@ module CmdStan
           raise "Expected file" unless download.respond_to?(:path)
 
           download.flush
-          digest = Digest::SHA256.file(download.path)
-          if digest.hexdigest != checksum
-            raise Error, "Bad checksum: #{digest.hexdigest}"
+          digest = Digest::SHA256.file(download.path).hexdigest
+          if digest != checksum
+            raise Error, "Bad checksum: #{digest}"
           end
 
           puts "Unpacking..."
