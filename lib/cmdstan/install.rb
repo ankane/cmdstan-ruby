@@ -43,9 +43,9 @@ module CmdStan
       unless Dir.exist?(dir)
         puts "Downloading..."
         URI.parse(url).open(max_redirects: 10) do |download|
-          # should always be tempfile
-          download.flush
+          raise "Expected file" unless download.respond_to?(:path)
 
+          download.flush
           digest = Digest::SHA256.file(download.path)
           if digest.hexdigest != checksum
             raise Error, "Bad checksum: #{digest.hexdigest}"
