@@ -1,5 +1,7 @@
-# stdlib
+# dependencies
 require "csv"
+
+# stdlib
 require "json"
 require "open3"
 require "tempfile"
