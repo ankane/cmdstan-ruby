@@ -41,25 +41,25 @@ module CmdStan
       end
 
       unless Dir.exist?(dir)
-        Dir.mktmpdir do |tmpdir|
-          puts "Downloading..."
-          download = URI.parse(url).open(max_redirects: 10)
-          download.flush
+        puts "Downloading..."
+        URI.parse(url).open(max_redirects: 10) do |download|
           # should always be tempfile
-          download_path = download.path
+          download.flush
 
-          digest = Digest::SHA256.file(download_path)
+          digest = Digest::SHA256.file(download.path)
           if digest.hexdigest != checksum
             raise Error, "Bad checksum: #{digest.hexdigest}"
           end
 
           puts "Unpacking..."
-          path = File.join(tmpdir, "cmdstan-#{version}")
-          FileUtils.mkdir_p(path)
-          tar_args = Gem.win_platform? ? ["--force-local"] : []
-          system "tar", "xzf", download_path, "-C", path, "--strip-components=1", *tar_args
+          Dir.mktmpdir do |tmpdir|
+            path = File.join(tmpdir, "cmdstan-#{version}")
+            FileUtils.mkdir_p(path)
+            tar_args = Gem.win_platform? ? ["--force-local"] : []
+            system "tar", "xzf", download.path, "-C", path, "--strip-components=1", *tar_args
 
-          FileUtils.mv(path, dir)
+            FileUtils.mv(path, dir)
+          end
         end
       end
 
