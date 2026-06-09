@@ -1,5 +1,6 @@
 ## 0.6.0 (unreleased)
 
+- Updated CmdStan to 2.39.0
 - Dropped support for Ruby < 3.3
 
 ## 0.5.2 (2026-01-13)

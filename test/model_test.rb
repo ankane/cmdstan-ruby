@@ -34,8 +34,9 @@ class ModelTest < Minitest::Test
     assert_in_delta(0.247379, summary["theta"]["Mean"], 0.1)
 
     mle = model.optimize(data: data, seed: 123)
-    assert_equal ["lp__", "theta"], mle.column_names
+    assert_equal ["lp__", "converged__", "theta"], mle.column_names
     assert_in_delta(-5.00402, mle.optimized_params["lp__"])
+    assert_equal 31, mle.optimized_params["converged__"]
     assert_in_delta(0.2, mle.optimized_params["theta"])
 
     # load model
