@@ -1,4 +1,4 @@
-## 0.6.1 (unreleased)
+## 0.6.1 (2026-09-16)
 
 - Updated CmdStan to 2.40.0
 
