@@ -3,7 +3,7 @@ module CmdStan
     include Utils
 
     def cmdstan_version
-      "2.39.0"
+      "2.40.0"
     end
 
     def cmdstan_installed?
@@ -22,10 +22,10 @@ module CmdStan
 
       # no stanc3 binary for Mac ARM
       if RbConfig::CONFIG["host_os"] !~ /darwin/i && RbConfig::CONFIG["host_cpu"] =~ /arm|aarch64/i
-        checksum = "58f0366614120f0f7be56179bb8f89a350af05f037ab5db32f8042fc05b5a587"
+        checksum = "c31e9f45a701c47f547381080ee804bf7e2428aace68eff68d4262b5c406aa63"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}-linux-arm64.tar.gz"
       else
-        checksum = "ffe03c29c9f139d77deeb156a2a0911ebf0742ae38311c739f4fcea3bc4f8909"
+        checksum = "edbb117be6b50238680b4a1e02a48d0e76ff6669ba0e6c7dbd9d7db78b759f88"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
       end
 
