@@ -25,7 +25,7 @@ module CmdStan
         checksum = "c31e9f45a701c47f547381080ee804bf7e2428aace68eff68d4262b5c406aa63"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}-linux-arm64.tar.gz"
       else
-        checksum = "edbb117be6b50238680b4a1e02a48d0e76ff6669ba0e6c7dbd9d7db78b759f88"
+        checksum = "26d21c9737b35728e926f9b7a5d7362b38dc23e2e7d5e166c890e1fa74dac90c"
         url = "https://github.com/stan-dev/cmdstan/releases/download/v#{version}/cmdstan-#{version}.tar.gz"
       end
 
