@@ -63,7 +63,7 @@ module CmdStan
             path = File.join(tmpdir, "cmdstan-#{version}")
             FileUtils.mkdir_p(path)
             tar_args = Gem.win_platform? ? ["--force-local"] : []
-            system "tar", "xzf", download.path, "-C", path, "--strip-components=1", *tar_args
+            system "tar", "xzf", download.path, "-C", path, "--strip-components=1", *tar_args, exception: true
 
             FileUtils.mv(path, dir)
           end
